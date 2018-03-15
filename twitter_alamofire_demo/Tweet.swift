@@ -9,19 +9,43 @@
 import Foundation
 
 class Tweet {
-    
-    // MARK: Properties
-    var id: Int64 // For favoriting, retweeting & replying
-    var text: String // Text content of tweet
-    var favoriteCount: Int? // Update favorite count label
-    var favorited: Bool? // Configure favorite button
-    var retweetCount: Int // Update favorite count label
-    var retweeted: Bool // Configure retweet button
-    var user: User // Contains name, screenname, etc. of tweet author
-    var createdAtString: String // Display date
-    
-    // MARK: - Create initializer with dictionary
+  
+  var created_at: String
+  var id: Int64
+  var id_str: String
+  var text: String
+  var source: String
+  var truncated: Bool
+  var in_reply_to_status_id: Int64 //nullable
+  var in_reply_to_status_id_str: String //nullable
+  var in_reply_to_user_id: Int64 //nullable
+  var in_reply_to_user_id_str: String //nullable
+  var in_reply_to_screen_name: String //nullable
+  var user: User
+  var quoted_status_id: Int64
+  var quoted_status_id_str: String
+  var is_quote_status: Bool
+  var quoted_status: Tweet
+  var retweeted_status: Tweet
+  var quote_count: Int //nullable
+  var reply_count: Int
+  var retweet_count: Int
+  var favorite_count: Int //nullable
+  var favorited: Bool //nullable
+  var retweeted: Bool
+
     init(dictionary: [String: Any]) {
+      var dictionary = dictionary
+      
+      // Is this a re-tweet?
+      if let originalTweet = dictionary["retweeted_status"] as? [String: Any] {
+        let userDictionary = dictionary["user"] as! [String: Any]
+        self.retweetedByUser = User(dictionary: userDictionary)
+        
+        // Change tweet to original tweet
+        dictionary = originalTweet
+      }
+      
         id = dictionary["id"] as! Int64
         text = dictionary["text"] as! String
         favoriteCount = dictionary["favorite_count"] as? Int

@@ -51,8 +51,12 @@ class APIManager: SessionManager {
     }
     
     func logout() {
+      
+      
+      
         clearCredentials()
-        
+      
+       // User.current = nil
         // TODO: Clear current user by setting it to nil
 
         NotificationCenter.default.post(name: NSNotification.Name("didLogout"), object: nil)
@@ -195,9 +199,11 @@ class APIManager: SessionManager {
         let keychain = Keychain()
         do {
             try keychain.remove("twitter_credentials")
+          
         } catch let error {
             print("error: \(error)")
         }
+      print("keychain token removed..")
     }
 }
 

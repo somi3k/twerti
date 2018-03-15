@@ -2,16 +2,16 @@
 
 **Twerti** is a basic twitter app to read and compose tweets the [Twitter API](https://apps.twitter.com/).
 
-Time spent: **1** hours spent in total
+Time spent: **3** hours spent in total
 
 ## User Stories
 
 The following **required** functionality is completed:
 
-- [ ] User sees app icon in home screen and styled launch screen. (1pt)
-- [ ] User can sign in using OAuth login flow. (1pt)
-- [ ] User can Logout. (1pt)
-- [ ] Create Data Models for User and Tweet. (1pt)
+- [x] User sees app icon in home screen and styled launch screen. (1pt)
+- [x] User can sign in using OAuth login flow. (1pt)
+- [x] User can Logout. (1pt)
+- [x] Create Data Models for User and Tweet. (1pt)
 - [ ] User can view last 20 tweets from their home timeline with the user profile picture, username, tweet text, and timestamp. (2pts)
 - [ ] User can pull to refresh. (1pt)
 - [ ] User can tap the retweet and favorite buttons in a tweet cell to retweet and/or favorite a tweet. (2pts)
@@ -33,19 +33,19 @@ Please list two areas of the assignment you'd like to **discuss further with you
 
 1.
 2.
-
+-->
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+![Twerti Video Walkthrough](https://github.com/saketksingh/twerti/blob/master/twerti1.gif)
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-Describe any challenges encountered while building the app.
--->
+Utilizing the MVC model, along with all of Twitter's API features is alot of work, but the modularity will be worth it!
+
 ## Credits
 
 List an 3rd party libraries, icons, graphics, or other assets you used in your app.
