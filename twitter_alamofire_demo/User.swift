@@ -13,7 +13,8 @@ class User {
   static var current: User?
   var name: String
   var screenName: String
-  var id: String
+  var id: Int64
+  var id_str: String
   var location: String  //nullable
   var description: String  //nullable
   var url: String  //nullable
@@ -43,7 +44,8 @@ class User {
   init(dictionary: [String: Any]) {
     name = dictionary["name"] as! String
     screenName = dictionary["screen_name"] as! String
-    id = dictionary["id"] as! String
+    id = dictionary["id"] as! Int64
+    id_str = dictionary["id_str"] as! String
     location = dictionary["location"] as? String ?? ""  //nullable
     description = dictionary["description"] as? String ?? ""  //nullable
     url = dictionary["url"] as? String ?? "" //nullable
@@ -53,14 +55,14 @@ class User {
     friends_count = dictionary["friends_count"] as! Int
     listed_count = dictionary["listed_count"] as! Int
     favourites_count = dictionary["favourites_count"] as! Int
-    statuses_count = dictionary["statues_count"] as! Int
+    statuses_count = dictionary["statuses_count"] as! Int
     created_at = dictionary["created_at"] as! String
-    time_zone = dictionary["time_zone"] as! String
+    time_zone = dictionary["time_zone"] as? String ?? ""
     profile_background_color = dictionary["profile_background_color"] as! String
-    profile_background_image_url_https = dictionary["profile_background_image_url_https"] as! String
+    profile_background_image_url_https = dictionary["profile_background_image_url_https"] as? String ?? ""
     profile_background_tile = dictionary["profile_background_tile"] as! Bool
-    profile_banner_url = dictionary["profile_banner_url"] as! String
-    profile_image_url_https = dictionary["profile_image_url_https"] as! String
+    profile_banner_url = dictionary["profile_banner_url"] as? String ?? ""
+    profile_image_url_https = dictionary["profile_image_url_https"] as? String ?? ""
     profile_link_color = dictionary["profile_link_color"] as! String
     profile_sidebar_border_color = dictionary["profile_sidebar_border_color"] as! String
     profile_sidebar_fill_color = dictionary["profile_sidebar_fill_color"] as! String

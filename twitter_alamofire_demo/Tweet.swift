@@ -29,9 +29,9 @@ class Tweet {
   var quoted_status: Tweet?
   var retweeted_status: Tweet?
   var quote_count: Int? //nullable
-  var reply_count: Int?
-  var retweet_count: Int?
-  var favorite_count: Int? //nullable
+  var reply_count: Int
+  var retweet_count: Int
+  var favorite_count: Int //nullable
   var favorited: Bool? //nullable
   var retweeted: Bool?
   
@@ -39,7 +39,7 @@ class Tweet {
   
   init(dictionary: [String: Any]) {
     var dictionary = dictionary
-    
+    //print(dictionary)
     // Is this a re-tweet?
     if let originalTweet = dictionary["retweeted_status"] as? [String: Any] {
       let userDictionary = dictionary["user"] as! [String: Any]
@@ -64,9 +64,9 @@ class Tweet {
     is_quote_status = dictionary["is_quote_status"] as? Bool
     quoted_status = dictionary["quoted_status"] as? Tweet
     retweeted_status = dictionary["retweeeted_status"] as? Tweet
-    quote_count = dictionary["quote_count"] as? Int ?? -1 //nullable
-    reply_count = dictionary["reply_count"] as? Int
-    retweet_count = dictionary["retweet_count"] as? Int
+    quote_count = dictionary["quote_count"] as? Int ?? 0 //nullable
+    reply_count = dictionary["reply_count"] as? Int ?? 0
+    retweet_count = dictionary["retweet_count"] as! Int
     favorite_count = dictionary["favorite_count"] as? Int ?? 0 //nullable
     favorited = dictionary["favorited"] as? Bool ?? false //nullable
     retweeted = dictionary["retweeted"] as? Bool
