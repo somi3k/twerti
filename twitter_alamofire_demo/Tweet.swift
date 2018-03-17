@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import DateToolsSwift
 
 class Tweet {
   
@@ -80,11 +81,7 @@ class Tweet {
     formatter.dateFormat = "E MMM d HH:mm:ss Z y"
     // Convert String to Date
     let date = formatter.date(from: createdAtOriginalString)!
-    // Configure output format
-    formatter.dateStyle = .short
-    formatter.timeStyle = .none
-    // Convert Date to String
-    createdAtString = formatter.string(from: date)
+    createdAtString = Date.timeAgo(since: date)
   }
   
   
