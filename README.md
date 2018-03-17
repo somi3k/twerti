@@ -13,7 +13,7 @@ The following **required** functionality is completed:
 - [x] User can Logout. (1pt)
 - [x] Create Data Models for User and Tweet. (1pt)
 - [x] User can view last 20 tweets from their home timeline with the user profile picture, username, tweet text, and timestamp. (2pts)
-- [ ] User can pull to refresh. (1pt)
+- [x] User can pull to refresh. (1pt)
 - [ ] User can tap the retweet and favorite buttons in a tweet cell to retweet and/or favorite a tweet. (2pts)
 - [ ] Using AutoLayout, the Tweet cell should adjust it's layout for iPhone 7, Plus and SE device sizes as well as accommodate device rotation. (1pt)
 
