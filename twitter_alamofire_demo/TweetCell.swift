@@ -18,24 +18,104 @@ class TweetCell: UITableViewCell {
   @IBOutlet var nameLabel: UILabel!
   @IBOutlet var retweetCount: UILabel!
   @IBOutlet var favoriteCount: UILabel!
+  @IBOutlet var favoriteButton: UIButton!
+  @IBOutlet var retweetButton: UIButton!
   
   
   var tweet: Tweet! {
     didSet {
-      tweetTextLabel.text = tweet.text
-      createdAtLabel.text = tweet.createdAtString
-      nameLabel.text = tweet.user?.name
-      usernameLabel.text = String("@" + (tweet.user?.screenName)!)
-      retweetCount.text = String(describing: tweet.retweet_count)
-      favoriteCount.text = String(describing: tweet.favorite_count)
-      
-      let placeholderImage = #imageLiteral(resourceName: "profile-Icon")
-      
-      // specify animation technique for image transition
-      let filter = AspectScaledToFillSizeFilter(size: profileImageView.frame.size)
-
-      profileImageView.af_setImage(withURL: URL(string: (self.tweet.user?.profile_image_url_https)!)!, placeholderImage: placeholderImage, filter: filter, imageTransition: .crossDissolve(0.1))
+      refreshData()
     }
+  }
+  
+  @IBAction func didTapFavorite(_ sender: Any) {
+    if tweet.favorited! {
+      tweet.favorited = false
+      tweet.favorite_count -= 1
+      refreshData()
+      APIManager.shared.unfavorite(tweet) { (tweet: Tweet?, error: Error?) in
+        if let  error = error {
+          print("Error unfavoriting tweet: \(error.localizedDescription)")
+        } else if let tweet = tweet {
+          print("Successfully unfavorited the following Tweet: \n\(String(describing: tweet.text))")
+        }
+      }
+    }
+    else {
+      tweet.favorited = true
+      tweet.favorite_count += 1
+      refreshData()
+      APIManager.shared.favorite(tweet) { (tweet: Tweet?, error: Error?) in
+        if let  error = error {
+          print("Error favoriting tweet: \(error.localizedDescription)")
+        } else if let tweet = tweet {
+          print("Successfully favorited the following Tweet: \n\(String(describing: tweet.text))")
+        }
+      }
+    }
+  }
+  
+  
+  
+  @IBAction func didRetweet(_ sender: Any) {
+    if tweet.retweeted! {
+      tweet.retweeted = false
+      tweet.retweet_count -= 1
+      refreshData()
+      APIManager.shared.unretweet(tweet) { (tweet: Tweet?, error: Error?) in
+        if let  error = error {
+          print("Error unretweeting tweet: \(error.localizedDescription)")
+        } else if let tweet = tweet {
+          print("Successfully unretweeted the following Tweet: \n\(String(describing: tweet.text))")
+        }
+      }
+    }
+    else {
+      tweet.retweeted = true
+      tweet.retweet_count += 1
+      refreshData()
+      APIManager.shared.retweet(tweet) { (tweet: Tweet?, error: Error?) in
+        if let  error = error {
+          print("Error retweeting tweet: \(error.localizedDescription)")
+        } else if let tweet = tweet {
+          print("Successfully retweeted the following Tweet: \n\(String(describing: tweet.text))")
+        }
+      }
+    }
+  }
+  
+  
+  //Update UI with tweet parameters
+  func refreshData() {
+    if tweet.favorited! {
+      favoriteButton.setImage(#imageLiteral(resourceName: "favor-icon-red.png"), for: .normal)
+    }
+    else {
+      favoriteButton.setImage(#imageLiteral(resourceName: "favor-icon.png"), for: .normal)
+    }
+    if tweet.retweeted! {
+      retweetButton.setImage(#imageLiteral(resourceName: "retweet-icon-green.png"), for: .normal)
+    }
+    else {
+      retweetButton.setImage(#imageLiteral(resourceName: "retweet-icon.png"), for: .normal)
+    }
+    tweetTextLabel.text = tweet.text
+    createdAtLabel.text = tweet.createdAtString
+    nameLabel.text = tweet.user?.name
+    usernameLabel.text = String("@" + (tweet.user?.screenName)!)
+    retweetCount.text = formatNumber(number: tweet.retweet_count)
+    favoriteCount.text = formatNumber(number: tweet.favorite_count)
+    
+    let placeholderImage = #imageLiteral(resourceName: "profile-Icon")
+    let filter = AspectScaledToFillSizeFilter(size: profileImageView.frame.size)
+    profileImageView.af_setImage(withURL: URL(string: (self.tweet.user?.profile_image_url_https)!)!, placeholderImage: placeholderImage, filter: filter, imageTransition: .crossDissolve(0.1))
+  }
+  
+  func formatNumber(number: Int) -> String {
+    let formatter = NumberFormatter()
+    formatter.groupingSeparator = ","
+    formatter.numberStyle = .decimal
+    return formatter.string(from: NSNumber(value:number))!
   }
   
   override func awakeFromNib() {
