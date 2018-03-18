@@ -10,59 +10,67 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    
-    var window: UIWindow?
-    
-    
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
-      if User.current != nil {
-        // Load and show the login view controller
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let homeTimelineViewController = storyboard.instantiateViewController(withIdentifier: "TimelineViewController")
-        window?.rootViewController = homeTimelineViewController
-      }
-        
-        NotificationCenter.default.addObserver(forName: Notification.Name("didLogout"), object: nil, queue: OperationQueue.main) { (Notification) in
-            print("Logout notification received")
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
-            self.window?.rootViewController = loginVC
-        }
-        
-        return true
+  
+  var window: UIWindow?
+  
+  func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {    
+    if User.current != nil {
+      // Load and show the login view controller
+      let storyboard = UIStoryboard(name: "Main", bundle: nil)
+      let homeTimelineViewController = storyboard.instantiateViewController(withIdentifier: "TimelineViewController")
+      
+      let navBar: UINavigationBar = UINavigationBar(frame: CGRect(x: 0, y:0, width: UIScreen.main.bounds.width, height: 54))
+      let navItem = UINavigationItem(title: "Home Feed")
+      let signOut = UIBarButtonItem(title: "Logout", style: .done, target: nil, action: #selector(done))
+      //let signOut = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done , target: nil, action: #selector(done))
+      navItem.leftBarButtonItem = signOut
+      navBar.setItems([navItem], animated: false)
+      homeTimelineViewController.view.addSubview(navBar)
+      window?.rootViewController = homeTimelineViewController
     }
-    
-    // MARK: TODO: Open URL
-    // OAuth step 2
-    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-        // Handle urlcallback sent from Twitter
-        APIManager.shared.handle(url: url)
-        return true
+    NotificationCenter.default.addObserver(forName: Notification.Name("didLogout"), object: nil, queue: OperationQueue.main) { (Notification) in
+      print("Logout notification received")
+      let storyboard = UIStoryboard(name: "Main", bundle: nil)
+      let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
+      self.window?.rootViewController = loginVC
     }
-    
-    func applicationWillResignActive(_ application: UIApplication) {
-        // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-        // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
-    }
-    
-    func applicationDidEnterBackground(_ application: UIApplication) {
-        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    }
-    
-    func applicationWillEnterForeground(_ application: UIApplication) {
-        // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
-    }
-    
-    func applicationDidBecomeActive(_ application: UIApplication) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    }
-    
-    func applicationWillTerminate(_ application: UIApplication) {
-        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    }
-    
-    
+    return true
+  }
+  
+  @objc func done() {
+    APIManager.shared.logout()
+  }
+  
+  // MARK: TODO: Open URL
+  // OAuth step 2
+  func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+    // Handle urlcallback sent from Twitter
+    APIManager.shared.handle(url: url)
+    return true
+  }
+  
+  func applicationWillResignActive(_ application: UIApplication) {
+    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
+    // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+  }
+  
+  func applicationDidEnterBackground(_ application: UIApplication) {
+    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
+    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+  }
+  
+  func applicationWillEnterForeground(_ application: UIApplication) {
+    // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+  }
+  
+  func applicationDidBecomeActive(_ application: UIApplication) {
+    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+  }
+  
+  func applicationWillTerminate(_ application: UIApplication) {
+    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+  }
+  
+  
 }
 
