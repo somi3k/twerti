@@ -78,13 +78,6 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="216.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="epC-Fs-Q5Z">
-                                                    <rect key="frame" x="75" y="51" width="331" height="90"/>
-                                                    <string key="text">It would be great for the Republican Party of Nevada, and it’s unity if good guy Danny Tarkanian would run for Congress and Dean Heller, who is doing a really good job, could run for Senate unopposed!</string>
-                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lwG-Zf-ccH">
                                                     <rect key="frame" x="8" y="8" width="50" height="50"/>
                                                     <constraints>
@@ -117,7 +110,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ICv-vh-ATx">
-                                                    <rect key="frame" x="166" y="182.5" width="30" height="30"/>
+                                                    <rect key="frame" x="166" y="176.5" width="30" height="36"/>
                                                     <state key="normal" image="favor-icon"/>
                                                     <connections>
                                                         <action selector="didTapFavorite:" destination="U1g-kw-izy" eventType="touchUpInside" id="zsh-X9-OZ2"/>
@@ -136,37 +129,46 @@
                                                     <color key="textColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <textView autoresizesSubviews="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qdv-xN-d8C">
+                                                    <rect key="frame" x="75" y="51" width="308" height="133.5"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <accessibility key="accessibilityConfiguration">
+                                                        <accessibilityTraits key="traits" link="YES" staticText="YES"/>
+                                                    </accessibility>
+                                                    <string key="text">It would be great for the Republican Party of Nevada, and it’s unity if good guy Danny Tarkanian would run for Congress and Dean Heller, who is doing a really good job, could run for Senate unopposed!</string>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" textContentType="url"/>
+                                                    <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                                                </textView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="lwG-Zf-ccH" firstAttribute="leading" secondItem="zd2-Er-659" secondAttribute="leading" constant="8" id="0FI-ZX-fIJ"/>
-                                                <constraint firstItem="epC-Fs-Q5Z" firstAttribute="leading" secondItem="lwG-Zf-ccH" secondAttribute="trailing" constant="17" id="3tS-PM-JAb"/>
+                                                <constraint firstAttribute="trailing" secondItem="Qdv-xN-d8C" secondAttribute="trailing" constant="-8" id="4pO-eB-ebW"/>
+                                                <constraint firstItem="Qdv-xN-d8C" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="ICv-vh-ATx" secondAttribute="top" constant="8" id="7ga-8X-Nb6"/>
                                                 <constraint firstItem="ICv-vh-ATx" firstAttribute="leading" secondItem="c8I-GP-ZWe" secondAttribute="trailing" constant="20" id="88g-Ap-mXH"/>
-                                                <constraint firstItem="8nL-DD-kzz" firstAttribute="top" relation="greaterThanOrEqual" secondItem="epC-Fs-Q5Z" secondAttribute="bottom" constant="8" id="8B1-cm-hFt"/>
                                                 <constraint firstItem="SVp-4O-3SO" firstAttribute="top" secondItem="zd2-Er-659" secondAttribute="top" constant="8" id="CG7-X0-a8y"/>
                                                 <constraint firstItem="Jgr-74-rO4" firstAttribute="leading" secondItem="lwG-Zf-ccH" secondAttribute="trailing" constant="17" id="Drd-96-JCf"/>
+                                                <constraint firstItem="Qdv-xN-d8C" firstAttribute="top" secondItem="Dsg-uV-bRg" secondAttribute="bottom" constant="4" id="EFj-SK-plU"/>
                                                 <constraint firstItem="SVp-4O-3SO" firstAttribute="leading" secondItem="Jgr-74-rO4" secondAttribute="trailing" constant="8" id="Fj0-dy-BFy"/>
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="lwG-Zf-ccH" secondAttribute="bottom" constant="8" id="GQn-7o-Yq7"/>
-                                                <constraint firstItem="epC-Fs-Q5Z" firstAttribute="top" secondItem="Dsg-uV-bRg" secondAttribute="bottom" constant="4" id="HqA-Gw-C4k"/>
                                                 <constraint firstAttribute="bottom" secondItem="ICv-vh-ATx" secondAttribute="bottom" constant="4" id="IoR-Yl-nPP"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Dsg-uV-bRg" secondAttribute="trailing" constant="8" id="KuB-Qz-BK1"/>
                                                 <constraint firstItem="Dsg-uV-bRg" firstAttribute="leading" secondItem="lwG-Zf-ccH" secondAttribute="trailing" constant="17" id="L86-gD-xy5"/>
-                                                <constraint firstItem="c8I-GP-ZWe" firstAttribute="top" relation="greaterThanOrEqual" secondItem="epC-Fs-Q5Z" secondAttribute="bottom" constant="8" id="M0P-qL-B3K"/>
                                                 <constraint firstAttribute="bottom" secondItem="8nL-DD-kzz" secondAttribute="bottom" constant="4" id="V2g-eH-CIo"/>
+                                                <constraint firstItem="Qdv-xN-d8C" firstAttribute="leading" secondItem="lwG-Zf-ccH" secondAttribute="trailing" constant="17" id="XZf-sw-hFx"/>
                                                 <constraint firstItem="c8I-GP-ZWe" firstAttribute="leading" secondItem="8nL-DD-kzz" secondAttribute="trailing" constant="3" id="Xca-W4-nLM"/>
                                                 <constraint firstItem="lwG-Zf-ccH" firstAttribute="leading" secondItem="zd2-Er-659" secondAttribute="leading" constant="8" id="YI7-eI-3WN"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="2sT-8q-d2s" secondAttribute="trailing" constant="8" id="YeO-KG-vWd"/>
-                                                <constraint firstItem="ICv-vh-ATx" firstAttribute="top" relation="greaterThanOrEqual" secondItem="epC-Fs-Q5Z" secondAttribute="bottom" constant="8" id="b47-Et-5ej"/>
-                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="epC-Fs-Q5Z" secondAttribute="bottom" constant="8" id="beh-IV-khs"/>
                                                 <constraint firstAttribute="bottom" secondItem="2sT-8q-d2s" secondAttribute="bottom" constant="8" id="cQA-ea-lyH"/>
                                                 <constraint firstItem="Jgr-74-rO4" firstAttribute="top" secondItem="zd2-Er-659" secondAttribute="top" constant="8" id="dAK-Ex-8Qb"/>
                                                 <constraint firstItem="2sT-8q-d2s" firstAttribute="leading" secondItem="ICv-vh-ATx" secondAttribute="trailing" constant="3" id="dIi-at-gtb"/>
+                                                <constraint firstItem="Dsg-uV-bRg" firstAttribute="top" secondItem="Jgr-74-rO4" secondAttribute="bottom" constant="4" id="ebs-t4-yMm"/>
                                                 <constraint firstAttribute="bottom" secondItem="c8I-GP-ZWe" secondAttribute="bottom" constant="8" id="gxZ-Fv-0z8"/>
                                                 <constraint firstItem="8nL-DD-kzz" firstAttribute="leading" secondItem="zd2-Er-659" secondAttribute="leading" constant="64" id="hzU-C9-qBY"/>
                                                 <constraint firstItem="Dsg-uV-bRg" firstAttribute="top" secondItem="Jgr-74-rO4" secondAttribute="bottom" constant="4" id="kI8-15-M83"/>
-                                                <constraint firstItem="2sT-8q-d2s" firstAttribute="top" relation="greaterThanOrEqual" secondItem="epC-Fs-Q5Z" secondAttribute="bottom" constant="8" id="qwa-Tx-XfG"/>
                                                 <constraint firstItem="lwG-Zf-ccH" firstAttribute="top" secondItem="zd2-Er-659" secondAttribute="top" constant="8" id="rAr-WZ-DCb"/>
+                                                <constraint firstItem="c8I-GP-ZWe" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Qdv-xN-d8C" secondAttribute="bottom" constant="8" id="uoG-7C-2U5"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="SVp-4O-3SO" secondAttribute="trailing" constant="8" id="w5F-fQ-NTN"/>
-                                                <constraint firstItem="epC-Fs-Q5Z" firstAttribute="trailing" secondItem="zd2-Er-659" secondAttribute="trailing" constant="-8" id="wI0-Sm-snQ"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -177,7 +179,7 @@
                                             <outlet property="profileImageView" destination="lwG-Zf-ccH" id="Q2V-6f-wuP"/>
                                             <outlet property="retweetButton" destination="8nL-DD-kzz" id="gaH-lb-CxI"/>
                                             <outlet property="retweetCount" destination="c8I-GP-ZWe" id="yp5-84-UfD"/>
-                                            <outlet property="tweetTextLabel" destination="epC-Fs-Q5Z" id="ZLP-IG-Wsf"/>
+                                            <outlet property="tweetTextView" destination="Qdv-xN-d8C" id="vh6-0P-Mj0"/>
                                             <outlet property="usernameLabel" destination="SVp-4O-3SO" id="MIa-1a-Eac"/>
                                         </connections>
                                     </tableViewCell>
@@ -205,7 +207,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZlF-i2-Ves" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1659.375" y="34.859154929577464"/>
+            <point key="canvasLocation" x="1658.4000000000001" y="34.632683658170919"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="WXZ-z8-8LI">

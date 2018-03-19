@@ -8,7 +8,6 @@ PODS:
   - OAuthSwiftAlamofire (0.1.0):
     - Alamofire
     - OAuthSwift
-  - TTTAttributedLabel (2.0.0)
 
 DEPENDENCIES:
   - Alamofire
@@ -17,7 +16,6 @@ DEPENDENCIES:
   - KeychainAccess
   - OAuthSwift
   - OAuthSwiftAlamofire
-  - TTTAttributedLabel
 
 SPEC CHECKSUMS:
   Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
@@ -26,8 +24,7 @@ SPEC CHECKSUMS:
   KeychainAccess: 017ea25e313a49eda10bb19b0bb0760fb1edfe1a
   OAuthSwift: 6e3a103b3e5639411769cc7e199ec7e14bd1547f
   OAuthSwiftAlamofire: 20bb998ac506f82c3bab0625fbc98a9c6fca783f
-  TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
 
-PODFILE CHECKSUM: 08eddf597042238c0747bdcda4b4a53c0a644079
+PODFILE CHECKSUM: 8c287cc4f308be03ee3aa6e58676f1d3d0f0d585
 
 COCOAPODS: 1.4.0

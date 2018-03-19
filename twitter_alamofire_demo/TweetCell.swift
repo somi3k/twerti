@@ -10,9 +10,9 @@ import UIKit
 import AlamofireImage
 import DateToolsSwift
 
-class TweetCell: UITableViewCell {
+class TweetCell: UITableViewCell, UITextViewDelegate {
   
-  @IBOutlet weak var tweetTextLabel: UILabel!
+  @IBOutlet var tweetTextView: UITextView!
   @IBOutlet var profileImageView: UIImageView!
   @IBOutlet var createdAtLabel: UILabel!
   @IBOutlet var usernameLabel: UILabel!
@@ -21,7 +21,6 @@ class TweetCell: UITableViewCell {
   @IBOutlet var favoriteCount: UILabel!
   @IBOutlet var favoriteButton: UIButton!
   @IBOutlet var retweetButton: UIButton!
-  
   
   var tweet: Tweet! {
     didSet {
@@ -85,7 +84,6 @@ class TweetCell: UITableViewCell {
     }
   }
   
-  
   //Update UI with tweet parameters
   func refreshData() {
     if tweet.favorited! {
@@ -100,7 +98,14 @@ class TweetCell: UITableViewCell {
     else {
       retweetButton.setImage(#imageLiteral(resourceName: "retweet-icon.png"), for: .normal)
     }
-    tweetTextLabel.text = tweet.text
+    
+    //Format textview for clickable links
+    tweetTextView.isEditable = false
+    tweetTextView.dataDetectorTypes = UIDataDetectorTypes.all
+    tweetTextView.text = tweet.text
+    tweetTextView.isScrollEnabled = false
+    tweetTextView.sizeToFit()
+    
     createdAtLabel.text = tweet.createdAtString
     nameLabel.text = tweet.user?.name
     usernameLabel.text = String("@" + (tweet.user?.screenName)!)

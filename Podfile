@@ -12,7 +12,6 @@ target 'twitter_alamofire_demo' do
   pod 'OAuthSwift'
   pod 'OAuthSwiftAlamofire'
   pod 'KeychainAccess'
-  pod 'TTTAttributedLabel'
 
 
   target 'twitter_alamofire_demoTests' do
