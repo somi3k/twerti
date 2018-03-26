@@ -28,7 +28,7 @@ class TimelineViewController: UIViewController, UITableViewDelegate, UITableView
     
     tableView.estimatedRowHeight = 80
     tableView.rowHeight = UITableViewAutomaticDimension
-
+    
     
     APIManager.shared.getHomeTimeLine { (tweets, error) in
       if let tweets = tweets {
@@ -81,13 +81,14 @@ class TimelineViewController: UIViewController, UITableViewDelegate, UITableView
     APIManager.shared.logout()
   }
   
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-   let detailViewController = segue.destination as! DetailViewController
-      let cell = sender as! TweetCell
-      if let indexPath = tableView.indexPath(for: cell) {
-        let tweet = tweets[indexPath.row]
-        detailViewController.tweet = tweet
-      }
-   }
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    let cell = sender as! UITableViewCell
+    if let indexPath = tableView.indexPath(for: cell) {
+      let tweet = tweets[indexPath.row]
+      let detailViewController = segue.destination as! DetailViewController
+      detailViewController.tweet = tweet
+      print(tweet)
+    }
+  }
   
 }

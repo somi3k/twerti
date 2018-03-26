@@ -264,11 +264,9 @@
                                 <rect key="frame" x="125" y="321" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="retweet-icon"/>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CXw-PL-Edh">
-                                <rect key="frame" x="243" y="321" width="30" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="favor-icon"/>
+                                <connections>
+                                    <action selector="didTapRetweet:" destination="YeS-8W-ShT" eventType="touchUpInside" id="Wti-Nu-5ZA"/>
+                                </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="TS8-4b-gry">
                                 <rect key="frame" x="62" y="136" width="287" height="130"/>
@@ -278,8 +276,16 @@
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cMz-Yh-9ND">
+                                <rect key="frame" x="235" y="321" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="favor-icon"/>
+                                <connections>
+                                    <action selector="didTapFavorite:" destination="YeS-8W-ShT" eventType="touchUpInside" id="If8-nT-icS"/>
+                                </connections>
+                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="3,46823" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GMr-Kb-oRB">
-                                <rect key="frame" x="281" y="332" width="52" height="16"/>
+                                <rect key="frame" x="273" y="328" width="52" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" red="0.50192582607269287" green="0.5019868016242981" blue="0.50189846754074097" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -290,7 +296,7 @@
                     </view>
                     <connections>
                         <outlet property="createdAtLabel" destination="FMQ-9a-rAN" id="WdV-jH-vIC"/>
-                        <outlet property="favoriteButton" destination="CXw-PL-Edh" id="jd0-TL-FaX"/>
+                        <outlet property="favButton" destination="cMz-Yh-9ND" id="0UY-nP-O7y"/>
                         <outlet property="favoriteCount" destination="GMr-Kb-oRB" id="Qlh-Dq-u4l"/>
                         <outlet property="nameLabel" destination="udE-gn-5a1" id="5iL-GX-Tnb"/>
                         <outlet property="profileImageView" destination="DdT-9U-lMf" id="6bC-rP-VbW"/>
