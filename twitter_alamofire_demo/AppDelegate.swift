@@ -17,15 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     if User.current != nil {
       // Load and show the login view controller
       let storyboard = UIStoryboard(name: "Main", bundle: nil)
-      let homeTimelineViewController = storyboard.instantiateViewController(withIdentifier: "TimelineViewController")
-      
-      let navBar: UINavigationBar = UINavigationBar(frame: CGRect(x: 0, y:0, width: UIScreen.main.bounds.width, height: 54))
-      let navItem = UINavigationItem(title: "Home Feed")
-      let signOut = UIBarButtonItem(title: "Logout", style: .done, target: nil, action: #selector(done))
-      //let signOut = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done , target: nil, action: #selector(done))
-      navItem.leftBarButtonItem = signOut
-      navBar.setItems([navItem], animated: false)
-      homeTimelineViewController.view.addSubview(navBar)
+      //let homeTimelineViewController = storyboard.instantiateViewController(withIdentifier: "TimelineViewController")
+      let homeTimelineViewController = storyboard.instantiateViewController(withIdentifier: "TweetsNavigationController")
       window?.rootViewController = homeTimelineViewController
     }
     NotificationCenter.default.addObserver(forName: Notification.Name("didLogout"), object: nil, queue: OperationQueue.main) { (Notification) in

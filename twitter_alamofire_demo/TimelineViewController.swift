@@ -26,7 +26,7 @@ class TimelineViewController: UIViewController, UITableViewDelegate, UITableView
     tableView.dataSource = self
     tableView.delegate = self
     
-        tableView.estimatedRowHeight = 80
+    tableView.estimatedRowHeight = 80
     tableView.rowHeight = UITableViewAutomaticDimension
 
     
@@ -81,15 +81,13 @@ class TimelineViewController: UIViewController, UITableViewDelegate, UITableView
     APIManager.shared.logout()
   }
   
-  
-  /*
-   // MARK: - Navigation
-   
-   // In a storyboard-based application, you will often want to do a little preparation before navigation
-   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-   // Get the new view controller using segue.destinationViewController.
-   // Pass the selected object to the new view controller.
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+   let detailViewController = segue.destination as! DetailViewController
+      let cell = sender as! TweetCell
+      if let indexPath = tableView.indexPath(for: cell) {
+        let tweet = tweets[indexPath.row]
+        detailViewController.tweet = tweet
+      }
    }
-   */
   
 }
