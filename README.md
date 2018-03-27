@@ -19,7 +19,7 @@ The following **stretch** features are implemented:
 - [ ] User can tap the profile image in any tweet to see another user's profile. (1pt)
 - Contains the user header view: picture and tagline.
 - Contains a section with the users basic stats: # tweets, # following, # followers.
-- [ ] After creating a new tweet, a user should be able to view it in the timeline immediately without refetching the timeline from the network. (1pt)
+- [x] After creating a new tweet, a user should be able to view it in the timeline immediately without refetching the timeline from the network. (1pt)
 - [ ] User can reply to any tweet, and replies should be prefixed with the username and the reply_id should be set when posting the tweet. (2pts)
 - [ ] User sees embedded images in tweet if available. (3pts)
 - [ ] Pulling down the profile page should blur and resize the header image. (2pts)
