@@ -10,6 +10,8 @@ import UIKit
 
 class TimelineViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
   
+
+  
   var tweets: [Tweet] = []
   
   @IBOutlet weak var tableView: UITableView!
@@ -29,7 +31,9 @@ class TimelineViewController: UIViewController, UITableViewDelegate, UITableView
     tableView.estimatedRowHeight = 80
     tableView.rowHeight = UITableViewAutomaticDimension
     
-    
+  }
+  
+  override func viewDidAppear(_ animated: Bool) {
     APIManager.shared.getHomeTimeLine { (tweets, error) in
       if let tweets = tweets {
         self.tweets = tweets
@@ -54,6 +58,9 @@ class TimelineViewController: UIViewController, UITableViewDelegate, UITableView
   }
   
   
+  @IBAction func composeTweet(_ sender: Any) {
+    self.performSegue(withIdentifier: "composeSegue", sender: nil)
+  }
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return tweets.count
@@ -82,12 +89,14 @@ class TimelineViewController: UIViewController, UITableViewDelegate, UITableView
   }
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    let cell = sender as! UITableViewCell
-    if let indexPath = tableView.indexPath(for: cell) {
-      let tweet = tweets[indexPath.row]
+    
+    if segue.identifier == "detailSegue" {
       let detailViewController = segue.destination as! DetailViewController
-      detailViewController.tweet = tweet
-      print(tweet)
+      let cell = sender as! TweetCell
+      if let indexPath = tableView.indexPath(for: cell) {
+        let tweet = tweets[indexPath.row]
+        detailViewController.tweet = tweet
+      }
     }
   }
   
