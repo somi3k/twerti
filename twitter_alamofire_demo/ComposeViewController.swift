@@ -29,8 +29,8 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
     tweetTextView.delegate = self
     
     tweetTextView.becomeFirstResponder()
-    usernameLabel.text = User.current?.name
-    nameLabel.text = User.current?.screenName
+    usernameLabel.text = String("@" + (User.current?.screenName)!)
+    nameLabel.text = User.current?.name
     let placeholderImage = #imageLiteral(resourceName: "profile-Icon")
     let filter = AspectScaledToFillSizeFilter(size: profileImageView.frame.size)
     profileImageView.af_setImage(withURL: URL(string: (User.current!.profile_image_url_https))!, placeholderImage: placeholderImage, filter: filter, imageTransition: .crossDissolve(0.1))

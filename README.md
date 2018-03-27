@@ -1,15 +1,15 @@
 # Project 6 - *Name of App Here*
 
-Time spent: **14** hours spent in total
+Time spent: **16** hours spent in total
 
 ## User Stories
 
 The following **required** stories are completed:
 
 - [x] User can tap on a tweet to view it in a detail view, with controls to retweet, favorite, and reply (2pts)
-- [ ] User can compose a new tweet by tapping on a compose button. (3pts)
-- [ ] When composing a tweet, user sees a countdown for the number of characters remaining for the tweet (out of 140) (2pt)
-- [ ] User can view their profile in a *profile tab* (3pts)
+- [x] User can compose a new tweet by tapping on a compose button. (3pts)
+- [x] When composing a tweet, user sees a countdown for the number of characters remaining for the tweet (out of 280) (2pt)
+- [x] User can view their profile in a *profile tab* (3pts)
 - Contains the user header view: picture and tagline
 - Contains a section with the users basic stats: # tweets, # following, # followers
 
@@ -32,7 +32,7 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-![Twerti Video Walkthrough](https://github.com/sks3/twerti/blob/master/twerti2.gif)
+![Twerti Video Walkthrough](https://github.com/sks3/twerti/blob/master/twerti3.gif)
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 

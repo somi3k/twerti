@@ -27,6 +27,7 @@ class User {
   var created_at: String
   var time_zone: String
   var profile_background_color: String
+  var profile_background_image_url: String
   var profile_background_image_url_https: String
   var profile_background_tile: Bool
   var profile_banner_url: String
@@ -84,6 +85,7 @@ class User {
     created_at = dictionary["created_at"] as! String
     time_zone = dictionary["time_zone"] as? String ?? ""
     profile_background_color = dictionary["profile_background_color"] as! String
+    profile_background_image_url = dictionary["profile_background_image_url"] as? String ?? ""
     profile_background_image_url_https = dictionary["profile_background_image_url_https"] as? String ?? ""
     profile_background_tile = dictionary["profile_background_tile"] as! Bool
     profile_banner_url = dictionary["profile_banner_url"] as? String ?? ""
