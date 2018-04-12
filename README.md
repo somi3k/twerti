@@ -1,4 +1,4 @@
-# Project 6 - *Name of App Here*
+# Project 6 - *Twerti*
 
 Time spent: **16** hours spent in total
 
