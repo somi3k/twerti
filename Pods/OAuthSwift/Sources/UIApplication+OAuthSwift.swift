@@ -10,7 +10,7 @@
     import UIKit
 
     extension UIApplication {
-        static var topViewController: UIViewController? {
+        @objc static var topViewController: UIViewController? {
             #if !OAUTH_APP_EXTENSIONS
                 return UIApplication.shared.topViewController
             #else
@@ -18,7 +18,7 @@
             #endif
         }
 
-        var topViewController: UIViewController? {
+        @objc var topViewController: UIViewController? {
             guard let rootController = self.keyWindow?.rootViewController else {
                 return nil
             }
@@ -28,7 +28,7 @@
 
     extension UIViewController {
 
-        static func topViewController(_ viewController: UIViewController) -> UIViewController {
+        @objc static func topViewController(_ viewController: UIViewController) -> UIViewController {
             guard let presentedViewController = viewController.presentedViewController else {
                 return viewController
             }

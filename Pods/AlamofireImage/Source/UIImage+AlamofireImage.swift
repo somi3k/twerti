@@ -1,7 +1,7 @@
 //
 //  UIImage+AlamofireImage.swift
 //
-//  Copyright (c) 2015-2016 Alamofire Software Foundation (http://alamofire.org/)
+//  Copyright (c) 2015-2018 Alamofire Software Foundation (http://alamofire.org/)
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -42,7 +42,7 @@ extension UIImage {
     /// - parameter data: The data object containing the image data.
     ///
     /// - returns: An initialized `UIImage` object, or `nil` if the method failed.
-    public static func af_threadSafeImage(with data: Data) -> UIImage? {
+    @objc public static func af_threadSafeImage(with data: Data) -> UIImage? {
         lock.lock()
         let image = UIImage(data: data)
         lock.unlock()
@@ -62,7 +62,7 @@ extension UIImage {
     ///                    different scale factor changes the size of the image as reported by the size property.
     ///
     /// - returns: An initialized `UIImage` object, or `nil` if the method failed.
-    public static func af_threadSafeImage(with data: Data, scale: CGFloat) -> UIImage? {
+    @objc public static func af_threadSafeImage(with data: Data, scale: CGFloat) -> UIImage? {
         lock.lock()
         let image = UIImage(data: data, scale: scale)
         lock.unlock()
@@ -79,7 +79,7 @@ extension UIImage {
     }
 
     /// Returns whether the image is inflated.
-    public var af_inflated: Bool {
+    @objc public var af_inflated: Bool {
         get {
             if let inflated = objc_getAssociatedObject(self, &AssociatedKey.inflated) as? Bool {
                 return inflated
@@ -96,7 +96,7 @@ extension UIImage {
     ///
     /// Inflating compressed image formats (such as PNG or JPEG) can significantly improve drawing performance as it
     /// allows a bitmap representation to be constructed in the background rather than on the main thread.
-    public func af_inflate() {
+    @objc public func af_inflate() {
         guard !af_inflated else { return }
 
         af_inflated = true
@@ -108,7 +108,7 @@ extension UIImage {
 
 extension UIImage {
     /// Returns whether the image contains an alpha component.
-    public var af_containsAlphaComponent: Bool {
+    @objc public var af_containsAlphaComponent: Bool {
         let alphaInfo = cgImage?.alphaInfo
 
         return (
@@ -120,7 +120,7 @@ extension UIImage {
     }
 
     /// Returns whether the image is opaque.
-    public var af_isOpaque: Bool { return !af_containsAlphaComponent }
+    @objc public var af_isOpaque: Bool { return !af_containsAlphaComponent }
 }
 
 // MARK: - Scaling
@@ -131,11 +131,13 @@ extension UIImage {
     /// - parameter size: The size to use when scaling the new image.
     ///
     /// - returns: A new image object.
-    public func af_imageScaled(to size: CGSize) -> UIImage {
-        UIGraphicsBeginImageContextWithOptions(size, af_isOpaque, 0.0)
-        draw(in: CGRect(origin: CGPoint.zero, size: size))
+    @objc public func af_imageScaled(to size: CGSize) -> UIImage {
+        assert(size.width > 0 && size.height > 0, "You cannot safely scale an image to a zero width or height")
 
-        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsBeginImageContextWithOptions(size, af_isOpaque, 0.0)
+        draw(in: CGRect(origin: .zero, size: size))
+
+        let scaledImage = UIGraphicsGetImageFromCurrentImageContext() ?? self
         UIGraphicsEndImageContext()
 
         return scaledImage
@@ -152,7 +154,9 @@ extension UIImage {
     /// - parameter size: The size to use when scaling the new image.
     ///
     /// - returns: A new image object.
-    public func af_imageAspectScaled(toFit size: CGSize) -> UIImage {
+    @objc public func af_imageAspectScaled(toFit size: CGSize) -> UIImage {
+        assert(size.width > 0 && size.height > 0, "You cannot safely scale an image to a zero width or height")
+
         let imageAspectRatio = self.size.width / self.size.height
         let canvasAspectRatio = size.width / size.height
 
@@ -170,7 +174,7 @@ extension UIImage {
         UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
         draw(in: CGRect(origin: origin, size: scaledSize))
 
-        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()!
+        let scaledImage = UIGraphicsGetImageFromCurrentImageContext() ?? self
         UIGraphicsEndImageContext()
 
         return scaledImage
@@ -182,7 +186,9 @@ extension UIImage {
     /// - parameter size: The size to use when scaling the new image.
     ///
     /// - returns: A new image object.
-    public func af_imageAspectScaled(toFill size: CGSize) -> UIImage {
+    @objc public func af_imageAspectScaled(toFill size: CGSize) -> UIImage {
+        assert(size.width > 0 && size.height > 0, "You cannot safely scale an image to a zero width or height")
+
         let imageAspectRatio = self.size.width / self.size.height
         let canvasAspectRatio = size.width / size.height
 
@@ -200,7 +206,7 @@ extension UIImage {
         UIGraphicsBeginImageContextWithOptions(size, af_isOpaque, 0.0)
         draw(in: CGRect(origin: origin, size: scaledSize))
 
-        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()!
+        let scaledImage = UIGraphicsGetImageFromCurrentImageContext() ?? self
         UIGraphicsEndImageContext()
 
         return scaledImage
@@ -220,7 +226,7 @@ extension UIImage {
     ///                                       `false` by default.
     ///
     /// - returns: A new image object.
-    public func af_imageRounded(withCornerRadius radius: CGFloat, divideRadiusByImageScale: Bool = false) -> UIImage {
+    @objc public func af_imageRounded(withCornerRadius radius: CGFloat, divideRadiusByImageScale: Bool = false) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
 
         let scaledRadius = divideRadiusByImageScale ? radius / scale : radius
@@ -239,7 +245,7 @@ extension UIImage {
     /// Returns a new version of the image rounded into a circle.
     ///
     /// - returns: A new image object.
-    public func af_imageRoundedIntoCircle() -> UIImage {
+    @objc public func af_imageRoundedIntoCircle() -> UIImage {
         let radius = min(size.width, size.height) / 2.0
         var squareImage = self
 
@@ -283,7 +289,7 @@ extension UIImage {
     /// - parameter parameters: The parameters to apply to the CoreImage filter.
     ///
     /// - returns: A new image object, or `nil` if the filter failed for any reason.
-    public func af_imageFiltered(withCoreImageFilter name: String, parameters: [String: Any]? = nil) -> UIImage? {
+    @objc public func af_imageFiltered(withCoreImageFilter name: String, parameters: [String: Any]? = nil) -> UIImage? {
         var image: CoreImage.CIImage? = ciImage
 
         if image == nil, let CGImage = self.cgImage {

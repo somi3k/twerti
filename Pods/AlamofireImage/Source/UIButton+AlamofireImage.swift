@@ -1,7 +1,7 @@
 //
 //  UIButton+AlamofireImage.swift
 //
-//  Copyright (c) 2015-2016 Alamofire Software Foundation (http://alamofire.org/)
+//  Copyright (c) 2015-2018 Alamofire Software Foundation (http://alamofire.org/)
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -107,7 +107,7 @@ extension UIButton {
 
     /// Asynchronously downloads an image from the specified URL and sets it once the request is finished.
     ///
-    /// If the image is cached locally, the image is set immediately. Otherwise the specified placehoder image will be
+    /// If the image is cached locally, the image is set immediately. Otherwise the specified placeholder image will be
     /// set immediately, and then the remote image will be set once the image request is finished.
     ///
     /// - parameter state:            The control state of the button to set the image on.
@@ -146,7 +146,7 @@ extension UIButton {
 
     /// Asynchronously downloads an image from the specified URL request and sets it once the request is finished.
     ///
-    /// If the image is cached locally, the image is set immediately. Otherwise the specified placehoder image will be
+    /// If the image is cached locally, the image is set immediately. Otherwise the specified placeholder image will be
     /// set immediately, and then the remote image will be set once the image request is finished.
     ///
     /// - parameter state:            The control state of the button to set the image on.
@@ -241,7 +241,7 @@ extension UIButton {
     }
 
     /// Cancels the active download request for the image, if one exists.
-    public func af_cancelImageRequest(for state: UIControlState) {
+    @objc public func af_cancelImageRequest(for state: UIControlState) {
         guard let receipt = imageRequestReceipt(for: state) else { return }
 
         let imageDownloader = af_imageDownloader ?? UIButton.af_sharedImageDownloader
@@ -254,7 +254,7 @@ extension UIButton {
 
     /// Asynchronously downloads an image from the specified URL and sets it once the request is finished.
     ///
-    /// If the image is cached locally, the image is set immediately. Otherwise the specified placehoder image will be
+    /// If the image is cached locally, the image is set immediately. Otherwise the specified placeholder image will be
     /// set immediately, and then the remote image will be set once the image request is finished.
     ///
     /// - parameter state:            The control state of the button to set the image on.
@@ -293,7 +293,7 @@ extension UIButton {
 
     /// Asynchronously downloads an image from the specified URL request and sets it once the request is finished.
     ///
-    /// If the image is cached locally, the image is set immediately. Otherwise the specified placehoder image will be
+    /// If the image is cached locally, the image is set immediately. Otherwise the specified placeholder image will be
     /// set immediately, and then the remote image will be set once the image request is finished.
     ///
     /// - parameter state:            The control state of the button to set the image on.
@@ -388,7 +388,7 @@ extension UIButton {
     }
 
     /// Cancels the active download request for the background image, if one exists.
-    public func af_cancelBackgroundImageRequest(for state: UIControlState) {
+    @objc public func af_cancelBackgroundImageRequest(for state: UIControlState) {
         guard let receipt = backgroundImageRequestReceipt(for: state) else { return }
 
         let imageDownloader = af_imageDownloader ?? UIButton.af_sharedImageDownloader

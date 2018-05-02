@@ -1,7 +1,7 @@
 //
 //  TaskDelegate.swift
 //
-//  Copyright (c) 2014-2016 Alamofire Software Foundation (http://alamofire.org/)
+//  Copyright (c) 2014-2018 Alamofire Software Foundation (http://alamofire.org/)
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -31,26 +31,39 @@ open class TaskDelegate: NSObject {
     // MARK: Properties
 
     /// The serial operation queue used to execute all operations after the task completes.
-    open let queue: OperationQueue
+    @objc open let queue: OperationQueue
 
     /// The data returned by the server.
-    public var data: Data? { return nil }
+    @objc public var data: Data? { return nil }
 
     /// The error generated throughout the lifecyle of the task.
-    public var error: Error?
+    @objc public var error: Error?
 
-    var task: URLSessionTask? {
-        didSet { reset() }
+    @objc var task: URLSessionTask? {
+        set {
+            taskLock.lock(); defer { taskLock.unlock() }
+            _task = newValue
+        }
+        get {
+            taskLock.lock(); defer { taskLock.unlock() }
+            return _task
+        }
     }
 
     var initialResponseTime: CFAbsoluteTime?
-    var credential: URLCredential?
-    var metrics: AnyObject? // URLSessionTaskMetrics
+    @objc var credential: URLCredential?
+    @objc var metrics: AnyObject? // URLSessionTaskMetrics
+
+    private var _task: URLSessionTask? {
+        didSet { reset() }
+    }
+
+    private let taskLock = NSLock()
 
     // MARK: Lifecycle
 
-    init(task: URLSessionTask?) {
-        self.task = task
+    @objc init(task: URLSessionTask?) {
+        _task = task
 
         self.queue = {
             let operationQueue = OperationQueue()
@@ -63,17 +76,17 @@ open class TaskDelegate: NSObject {
         }()
     }
 
-    func reset() {
+    @objc func reset() {
         error = nil
         initialResponseTime = nil
     }
 
     // MARK: URLSessionTaskDelegate
 
-    var taskWillPerformHTTPRedirection: ((URLSession, URLSessionTask, HTTPURLResponse, URLRequest) -> URLRequest?)?
+    @objc var taskWillPerformHTTPRedirection: ((URLSession, URLSessionTask, HTTPURLResponse, URLRequest) -> URLRequest?)?
     var taskDidReceiveChallenge: ((URLSession, URLSessionTask, URLAuthenticationChallenge) -> (URLSession.AuthChallengeDisposition, URLCredential?))?
-    var taskNeedNewBodyStream: ((URLSession, URLSessionTask) -> InputStream?)?
-    var taskDidCompleteWithError: ((URLSession, URLSessionTask, Error?) -> Void)?
+    @objc var taskNeedNewBodyStream: ((URLSession, URLSessionTask) -> InputStream?)?
+    @objc var taskDidCompleteWithError: ((URLSession, URLSessionTask, Error?) -> Void)?
 
     @objc(URLSession:task:willPerformHTTPRedirection:newRequest:completionHandler:)
     func urlSession(
@@ -175,7 +188,7 @@ class DataTaskDelegate: TaskDelegate, URLSessionDataDelegate {
 
     // MARK: Properties
 
-    var dataTask: URLSessionDataTask { return task as! URLSessionDataTask }
+    @objc var dataTask: URLSessionDataTask { return task as! URLSessionDataTask }
 
     override var data: Data? {
         if dataStream != nil {
@@ -185,10 +198,10 @@ class DataTaskDelegate: TaskDelegate, URLSessionDataDelegate {
         }
     }
 
-    var progress: Progress
+    @objc var progress: Progress
     var progressHandler: (closure: Request.ProgressHandler, queue: DispatchQueue)?
 
-    var dataStream: ((_ data: Data) -> Void)?
+    @objc var dataStream: ((_ data: Data) -> Void)?
 
     private var totalBytesReceived: Int64 = 0
     private var mutableData: Data
@@ -215,10 +228,10 @@ class DataTaskDelegate: TaskDelegate, URLSessionDataDelegate {
 
     // MARK: URLSessionDataDelegate
 
-    var dataTaskDidReceiveResponse: ((URLSession, URLSessionDataTask, URLResponse) -> URLSession.ResponseDisposition)?
-    var dataTaskDidBecomeDownloadTask: ((URLSession, URLSessionDataTask, URLSessionDownloadTask) -> Void)?
-    var dataTaskDidReceiveData: ((URLSession, URLSessionDataTask, Data) -> Void)?
-    var dataTaskWillCacheResponse: ((URLSession, URLSessionDataTask, CachedURLResponse) -> CachedURLResponse?)?
+    @objc var dataTaskDidReceiveResponse: ((URLSession, URLSessionDataTask, URLResponse) -> URLSession.ResponseDisposition)?
+    @objc var dataTaskDidBecomeDownloadTask: ((URLSession, URLSessionDataTask, URLSessionDownloadTask) -> Void)?
+    @objc var dataTaskDidReceiveData: ((URLSession, URLSessionDataTask, Data) -> Void)?
+    @objc var dataTaskWillCacheResponse: ((URLSession, URLSessionDataTask, CachedURLResponse) -> CachedURLResponse?)?
 
     func urlSession(
         _ session: URLSession,
@@ -292,20 +305,20 @@ class DownloadTaskDelegate: TaskDelegate, URLSessionDownloadDelegate {
 
     // MARK: Properties
 
-    var downloadTask: URLSessionDownloadTask { return task as! URLSessionDownloadTask }
+    @objc var downloadTask: URLSessionDownloadTask { return task as! URLSessionDownloadTask }
 
-    var progress: Progress
+    @objc var progress: Progress
     var progressHandler: (closure: Request.ProgressHandler, queue: DispatchQueue)?
 
-    var resumeData: Data?
+    @objc var resumeData: Data?
     override var data: Data? { return resumeData }
 
     var destination: DownloadRequest.DownloadFileDestination?
 
-    var temporaryURL: URL?
-    var destinationURL: URL?
+    @objc var temporaryURL: URL?
+    @objc var destinationURL: URL?
 
-    var fileURL: URL? { return destination != nil ? destinationURL : temporaryURL }
+    @objc var fileURL: URL? { return destination != nil ? destinationURL : temporaryURL }
 
     // MARK: Lifecycle
 
@@ -323,9 +336,9 @@ class DownloadTaskDelegate: TaskDelegate, URLSessionDownloadDelegate {
 
     // MARK: URLSessionDownloadDelegate
 
-    var downloadTaskDidFinishDownloadingToURL: ((URLSession, URLSessionDownloadTask, URL) -> URL)?
-    var downloadTaskDidWriteData: ((URLSession, URLSessionDownloadTask, Int64, Int64, Int64) -> Void)?
-    var downloadTaskDidResumeAtOffset: ((URLSession, URLSessionDownloadTask, Int64, Int64) -> Void)?
+    @objc var downloadTaskDidFinishDownloadingToURL: ((URLSession, URLSessionDownloadTask, URL) -> URL)?
+    @objc var downloadTaskDidWriteData: ((URLSession, URLSessionDownloadTask, Int64, Int64, Int64) -> Void)?
+    @objc var downloadTaskDidResumeAtOffset: ((URLSession, URLSessionDownloadTask, Int64, Int64) -> Void)?
 
     func urlSession(
         _ session: URLSession,
@@ -409,9 +422,9 @@ class UploadTaskDelegate: DataTaskDelegate {
 
     // MARK: Properties
 
-    var uploadTask: URLSessionUploadTask { return task as! URLSessionUploadTask }
+    @objc var uploadTask: URLSessionUploadTask { return task as! URLSessionUploadTask }
 
-    var uploadProgress: Progress
+    @objc var uploadProgress: Progress
     var uploadProgressHandler: (closure: Request.ProgressHandler, queue: DispatchQueue)?
 
     // MARK: Lifecycle
@@ -428,9 +441,9 @@ class UploadTaskDelegate: DataTaskDelegate {
 
     // MARK: URLSessionTaskDelegate
 
-    var taskDidSendBodyData: ((URLSession, URLSessionTask, Int64, Int64, Int64) -> Void)?
+    @objc var taskDidSendBodyData: ((URLSession, URLSessionTask, Int64, Int64, Int64) -> Void)?
 
-    func URLSession(
+    @objc func URLSession(
         _ session: URLSession,
         task: URLSessionTask,
         didSendBodyData bytesSent: Int64,
